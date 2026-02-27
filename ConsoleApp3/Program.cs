@@ -1,104 +1,108 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace AnimalZoo {
-  public abstract class S_Animal {
-    public string S_Name { get; set; }
-    public int S_Age { get; set; }
-    public string S_Habitat { get; set; }
-    public string S_Diet { get; set; }
-    public double S_Weight { get; set; }
-    public string S_Color { get; set; }
+  public abstract class Animal {
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public string Habitat { get; set; }
+    public string Diet { get; set; }
+    public double Weight { get; set; }
+    public string Color { get; set; }
 
-    protected S_Animal(string name, int age, string habitat, string diet, double weight, string color) {
-      S_Name = name;
-      S_Age = age;
-      S_Habitat = habitat;
-      S_Diet = diet;
-      S_Weight = weight;
-      S_Color = color;
+    protected Animal(string name, int age, string habitat, string diet, double weight, string color) {
+      Name = name;
+      Age = age;
+      Habitat = habitat;
+      Diet = diet;
+      Weight = weight;
+      Color = color;
     }
 
-    public virtual string S_GetInfo() {
-      return $" Name: {S_Name}, Age: {S_Age}, Habitat: {S_Habitat}, Diet: {S_Diet}, Weight: {S_Weight} kg, Color: {S_Color} ";
+    public virtual string GetInfo() {
+      return $" Name: {Name}, Age: {Age}, Habitat: {Habitat}, Diet: {Diet}, Weight: {Weight} kg, Color: {Color} ";
     }
 
-    public abstract string S_GetAnimalType(); 
+    public abstract string GetAnimalType(); 
   }
 
-  public class S_Mammal : S_Animal {
-    public bool S_HasFur { get; set; }
-    public S_Mammal(string name, int age, string habitat, string diet, double weight, string color, bool hasFur)
+  public class Mammal : Animal {
+    public bool HasFur { get; set; }
+    public Mammal(string name, int age, string habitat, string diet, double weight, string color, bool hasFur)
       : base(name, age, habitat, diet, weight, color) {
-      S_HasFur = hasFur;
+      HasFur = hasFur;
     }
-    public override string S_GetInfo() {
-      return base.S_GetInfo() + $" , Type: Mammal, Fur: {(S_HasFur ? " yes " : " no ")} ";
+    public override string GetInfo() {
+      return base.GetInfo() + $" , Type: Mammal, Fur: {(HasFur ? " yes " : " no ")} ";
     }
-    public override string S_GetAnimalType() => " Mammal "; 
+    public override string GetAnimalType() => " Mammal "; 
   }
-    public class S_Bird : S_Animal {
-      public double S_WingSpan { get; set; }
-      public S_Bird(string name, int age, string habitat, string diet, double weight, string color, double wingSpan)
+    public class Bird : Animal {
+      public double WingSpan { get; set; }
+      public Bird(string name, int age, string habitat, string diet, double weight, string color, double wingSpan)
         : base(name, age, habitat, diet, weight, color) {
-        S_WingSpan = wingSpan;
+        WingSpan = wingSpan;
       }
-      public override string S_GetInfo() {
-        return base.S_GetInfo() + $" , Type: Bird, Wingspan: {S_WingSpan} m ";
+      public override string GetInfo() {
+        return base.GetInfo() + $" , Type: Bird, Wingspan: {WingSpan} m ";
       }
-      public override string S_GetAnimalType() => " Bird "; 
+      public override string GetAnimalType() => " Bird "; 
     }
-    public class S_Fish : S_Animal {
-      public string S_WaterType { get; set; }
-      public S_Fish(string name, int age, string habitat, string diet, double weight, string color, string waterType)
+    public class Fish : Animal {
+      public string WaterType { get; set; }
+      public Fish(string name, int age, string habitat, string diet, double weight, string color, string waterType)
         : base(name, age, habitat, diet, weight, color) {
-        S_WaterType = waterType;
+        WaterType = waterType;
       }
-      public override string S_GetInfo() {
-        return base.S_GetInfo() + $" , Type: Fish, Water type: {S_WaterType} ";
+      public override string GetInfo() {
+        return base.GetInfo() + $" , Type: Fish, Water type: {WaterType} ";
       }
-      public override string S_GetAnimalType() => " Fish ";
-    }
-
-    public class S_Reptile : S_Animal {
-      public bool S_IsVenomous { get; set; }
-      public S_Reptile(string name, int age, string habitat, string diet, double weight, string color, bool isVenomous)
-        : base(name, age, habitat, diet, weight, color) {
-        S_IsVenomous = isVenomous;
-      }
-      public override string S_GetInfo() {
-        return base.S_GetInfo() + $" , Type: Reptile, Venomous: {(S_IsVenomous ? "yes" : "no")} ";
-      }
-      public override string S_GetAnimalType() => " Reptile ";
+      public override string GetAnimalType() => " Fish ";
     }
 
-    public class S_Amphibian : S_Animal {
-      public string S_SkinMoisture { get; set; }
-      public S_Amphibian(string name, int age, string habitat, string diet, double weight, string color, string skinMoisture)
+    public class Reptile : Animal {
+      public bool IsVenomous { get; set; }
+      public Reptile(string name, int age, string habitat, string diet, double weight, string color, bool isVenomous)
         : base(name, age, habitat, diet, weight, color) {
-            S_SkinMoisture = skinMoisture;
+        IsVenomous = isVenomous;
       }
-      public override string S_GetInfo() {
-        return base.S_GetInfo() + $" , Type: Amphibian, Skin moisture: {S_SkinMoisture} ";
+      public override string GetInfo() {
+        return base.GetInfo() + $" , Type: Reptile, Venomous: {(IsVenomous ? "yes" : "no")} ";
       }
-      public override string S_GetAnimalType() => " Amphibian ";
+      public override string GetAnimalType() => " Reptile ";
     }
 
-    public sealed class S_AnimalManager {
-      private static readonly S_AnimalManager _instance = new S_AnimalManager();
-      private List<S_Animal> _animals = new List<S_Animal>();
+    public class Amphibian : Animal {
+      public string SkinMoisture { get; set; }
+      public Amphibian(string name, int age, string habitat, string diet, double weight, string color, string skinMoisture)
+        : base(name, age, habitat, diet, weight, color) {
+            SkinMoisture = skinMoisture;
+      }
+      public override string GetInfo() {
+        return base.GetInfo() + $" , Type: Amphibian, Skin moisture: {SkinMoisture} ";
+      }
+      public override string GetAnimalType() => " Amphibian ";  // '=>' означает "возвращает" или "выполняет"
+    }
 
-      private S_AnimalManager() { }
+    public sealed class AnimalManager
+    {
+        private static readonly AnimalManager s_instance = new AnimalManager();
+        private List<Animal> _animals = new List<Animal>();
 
-      public static S_AnimalManager Instance => _instance;
+        private AnimalManager() { }
 
-      public void S_AddAnimal(S_Animal animal) {
+        public static AnimalManager Instance // самое важное для Singleton,свойство — специальный метод в C#, который позволяет получить доступ к полю класса.
+        {
+            get { return s_instance; }
+        }
+
+        public void AddAnimal(Animal animal) {
         _animals.Add(animal);
-        Console.WriteLine($" Animal {animal.S_Name} successfully added! ");
+        Console.WriteLine($" Animal {animal.Name} successfully added! ");
       }
 
-      public void S_ShowAllAnimals() {
+      public void ShowAllAnimals() {
         if (_animals.Count == 0) {
           Console.WriteLine(" The animal list is empty. ");
           return;
@@ -106,21 +110,21 @@ namespace AnimalZoo {
         Console.WriteLine(" \n=== LIST OF ALL ANIMALS === ");
         for (int indexShow = 0; indexShow < _animals.Count; ++indexShow)
             {
-                Console.WriteLine($"[{indexShow + 1}] {_animals[indexShow].S_GetInfo()}");
+                Console.WriteLine($"[{indexShow + 1}] {_animals[indexShow].GetInfo()}");
             }
         }
 
-        public void S_ShowAnimalByIndex(int indexAnimal) {
+        public void ShowAnimalByIndex(int indexAnimal) {
           if (indexAnimal >= 0 && indexAnimal < _animals.Count) {
-            Console.WriteLine($"\n{_animals[indexAnimal].S_GetInfo()}"); }
+            Console.WriteLine($"\n{_animals[indexAnimal].GetInfo()}"); }
           else {
             Console.WriteLine(" Animal with this index not found. "); }
         }
 
-        public void S_ShowAnimalByName(string name) {
-          var animal = _animals.FirstOrDefault(a => a.S_Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        public void ShowAnimalByName(string name) {
+          var animal = _animals.FirstOrDefault(a => a.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
           if (animal != null) {
-            Console.WriteLine($" \n{animal.S_GetInfo()} ");
+            Console.WriteLine($" \n{animal.GetInfo()} ");
           }
           else
           {
@@ -133,18 +137,18 @@ namespace AnimalZoo {
 
     class Program {
         static void S_Main() {
-          S_AnimalManager manager = S_AnimalManager.Instance;
+          AnimalManager manager = AnimalManager.Instance;
 
-          S_Animal[] initialAnimals = new S_Animal[] {
-        new S_Mammal(" Tigerrous ", 5, " Jungle ", " Carnivore ", 190.5, " Striped ", true),
-        new S_Bird(" Snowy Owl ", 3, " Tundra ", " Carnivore ", 2.5, " White ", 1.5),
-        new S_Fish(" Salmon ", 2, " River ", " Carnivore ", 15.3, " Silver ", " Fresh "),
-        new S_Reptile(" Viper ", 4, " Tundra ", " Carnivore ", 1.2, " Gray ", true),
-        new S_Amphibian(" Kermit ", 1, " Swamp ", " Insectivore ", 0.3, " Green ", " Moist ")
+          Animal[] initialAnimals = new Animal[] {
+        new Mammal(" Tigerrous ", 5, " Jungle ", " Carnivore ", 190.5, " Striped ", true),
+        new Bird(" Snowy Owl ", 3, " Tundra ", " Carnivore ", 2.5, " White ", 1.5),
+        new Fish(" Salmon ", 2, " River ", " Carnivore ", 15.3, " Silver ", " Fresh "),
+        new Reptile(" Viper ", 4, " Tundra ", " Carnivore ", 1.2, " Gray ", true),
+        new Amphibian(" Kermit ", 1, " Swamp ", " Insectivore ", 0.3, " Green ", " Moist ")
         }; 
 
-        foreach (S_Animal animal in initialAnimals) {
-          manager.S_AddAnimal(animal);
+        foreach (Animal animal in initialAnimals) {
+          manager.AddAnimal(animal);
         }
 
           while (true) {
@@ -160,14 +164,14 @@ namespace AnimalZoo {
 
              switch (choice) {
                case " 1 ":
-                 manager.S_ShowAllAnimals();
+                 manager.ShowAllAnimals();
                  break;
 
                case " 2 ":
                  if (manager.GetAnimalsCount() > 0) {
                    Console.Write($" Enter index (1-{manager.GetAnimalsCount()}): ");
                    if (int.TryParse(Console.ReadLine(), out int indexGet) && indexGet > 0) {
-                     manager.S_ShowAnimalByIndex(indexGet - 1);
+                     manager.ShowAnimalByIndex(indexGet - 1);
                    }
                    else {
                      Console.WriteLine(" Invalid input! ");
@@ -181,7 +185,7 @@ namespace AnimalZoo {
                 case " 3 ":
                   Console.Write("Enter name: ");
                   string name = Console.ReadLine();
-                  manager.S_ShowAnimalByName(name);
+                  manager.ShowAnimalByName(name);
                   break;
 
                 case " 4 ":
@@ -237,19 +241,19 @@ namespace AnimalZoo {
           Console.Write(" Color: ");
           string color = Console.ReadLine();
 
-          S_Animal animal = null;
+          Animal animal = null;
 
           switch (type) {
             case 1:
               Console.Write(" Has fur? (yes/no): ");
               bool hasFur = Console.ReadLine().ToLower() == "yes";
-              animal = new S_Mammal(name, age, habitat, diet, weight, color, hasFur);
+              animal = new Mammal(name, age, habitat, diet, weight, color, hasFur);
               break;
 
             case 2:
               Console.Write(" Wingspan (m): ");
               if (double.TryParse(Console.ReadLine(), out double wingSpan)) {
-                animal = new S_Bird(name, age, habitat, diet, weight, color, wingSpan);
+                animal = new Bird(name, age, habitat, diet, weight, color, wingSpan);
               }
               else {
                Console.WriteLine(" Invalid wingspan! ");
@@ -260,24 +264,24 @@ namespace AnimalZoo {
              case 3:
                Console.Write(" Water type (fresh/salt): ");
                string waterType = Console.ReadLine();
-               animal = new S_Fish(name, age, habitat, diet, weight, color, waterType);
+               animal = new Fish(name, age, habitat, diet, weight, color, waterType);
                break;
 
              case 4:
                 Console.Write(" Is venomous? (yes/no): ");
                 bool isVenomous = Console.ReadLine().ToLower() == " yes ";
-                animal = new S_Reptile(name, age, habitat, diet, weight, color, isVenomous);
+                animal = new Reptile(name, age, habitat, diet, weight, color, isVenomous);
                  break;
 
              case 5:
                 Console.Write(" Skin moisture (moist/dry): ");
                 string skinMoisture = Console.ReadLine();
-                animal = new S_Amphibian(name, age, habitat, diet, weight, color, skinMoisture);
+                animal = new Amphibian(name, age, habitat, diet, weight, color, skinMoisture);
                 break;
           }
 
           if (animal != null) {
-            S_AnimalManager.Instance.S_AddAnimal(animal);
+            AnimalManager.Instance.AddAnimal(animal);
           }
         }
     }
